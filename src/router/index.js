@@ -1,5 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+
+
+
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
