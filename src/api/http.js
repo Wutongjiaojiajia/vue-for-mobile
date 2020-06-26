@@ -19,10 +19,8 @@ const http = ({
     isOriginalGET,
     errorCallback,
     extraConfig,
+    extraHeaders
 }) => {
-    // axios 默认设置
-    axios.defaults.retry = 3;
-    axios.defaults.retryDelay = 1000;
     // axios 拦截器
     axios.interceptors.response.use(
         response => {
@@ -51,9 +49,13 @@ const http = ({
         url: url,
         timeout: 20000,
         headers: {
-            'Content-Type': 'application/json'   //base64 --v0.0.6
+            'Content-Type': 'application/json;charset=UTF-8'
         }
     };
+    // 传入额外的请求头参数 ---20200518/v2.4.2
+    if(extraHeaders) {
+        config.headers = Object.assign(config.headers, extraHeaders)
+    }
     // 用来覆盖默认的超时时间
     if (timeout) {
         config.timeout = timeout;
@@ -80,7 +82,7 @@ const http = ({
             ts: `${(new Date()).getTime()}`
         };
     }
-    // 其他 axios 配置项 ---10291211/v0.0.3
+    // 其他 axios 配置项
     if(extraConfig) {
         config = Object.assign(config, extraConfig)
     }
